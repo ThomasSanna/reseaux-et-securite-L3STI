@@ -1,0 +1,129 @@
+\documentclass[titlepage]{article}
+\usepackage{listings}
+\usepackage{amsmath} % Pour les environnements mathématiques avancés
+
+\begin{document}
+
+\begin{titlepage}
+    \title{Réseaux et Sécurité: Conversion de nombres en flottant}
+    \author{SANNA Thomas}
+    \date{\today}
+    \maketitle
+\end{titlepage}
+
+\section{Conversion de 0.625 en flottant}
+
+\subsection{Formule}
+
+La formule générale pour convertir un nombre en flottant est:
+\[ 
+x = s \times 2^{(e-127)} \times (1+m) 
+\]
+où:
+- \( s \) est le signe (0 pour positif, 1 pour négatif)
+- \( e \) est l'exposant
+- \( m \) est la mantisse
+
+\subsection{Décomposition}
+
+Décomposons le nombre 0.625:
+\[ 
+0.625
+\]
+\[ 
+= 0.5 + 0.125 
+\]
+\[ 
+= \frac{1}{2} + \frac{1}{8} 
+\]
+\[ 
+= \frac{1}{2} + \frac{1}{2^3} 
+\]
+
+\subsection{Factoriser par la plus grande puissance de 2}
+
+Nous factorisons par la plus grande puissance de 2:
+\[ 
+2^{-1} + 2^{-3} 
+\]
+\[ 
+= 1 \times 2^{-1} + 2^{-2} \times 2^{-1} 
+\]
+\[ 
+= 2^{-1} \times (1 + 2^{-2}) 
+\]
+\[ 
+= 2^{126-127} \times (1 + 2^{-2}) 
+\]
+\[ 
+= 1(s) \times 2^{126-127} \times (1 + 2^{-2}) 
+\]
+
+\subsection{Résultat}
+
+Le résultat final est:
+\[ 
+0.625 =  0(s) \ 01111110(e) \ 01000000000000000000000(m) 
+\]
+
+% Ajouter un espace vertical ici
+\vspace{2cm}
+
+\section{Conversion de -34,06125 en flottant}
+
+\subsection{Formule}
+
+La formule générale pour convertir un nombre en flottant est:
+\[ 
+x = s \times 2^{(e-127)} \times (1+m) 
+\]
+où:
+- \( s \) est le signe (0 pour positif, 1 pour négatif)
+- \( e \) est l'exposant
+- \( m \) est la mantisse
+
+\subsection{Décomposition avec valeur absolue du nombre}
+
+Nous commençons par la décomposition de la valeur absolue du nombre. Nous mettrons \( s = -1 \) plus tard:
+\[ 
+-34,06125 
+\]
+\[ 
+= 100010,0000 \ 1111 \ 1010 \ 1110 \ 0001 \ 01 
+\]
+\[ 
+= 2^5 + 2^1 + 2^{-5} + 2^{-6} + \ldots 
+\]
+
+\subsection{Factoriser par la plus grande puissance de 2}
+
+Nous factorisons par la plus grande puissance de 2:
+\[ 
+= 2^5 \times (1 + 2^{-4} + 2^{-10} + \ldots) 
+\]
+\[ 
+(5 = e - 127 
+\]
+\[ 
+e = 132) 
+\]
+\[ 
+= (-1) \times 2^{132-127} \times (1 + 2^{-4} + 2^{-10} + \ldots) 
+\]
+\[ 
+m = (2^{-4} + 2^{-10} + \ldots) 
+\]
+
+Ainsi, la représentation en flottant est:
+\[ 
+\rightarrow 1 \ 10000100 \ 00010000111110101110000 
+\]
+
+\subsection{Résultat}
+
+Le résultat final est:
+\[ 
+-34,06125 = 1 \ 10000100 \ 00010000111110101110000 
+\]
+
+\end{document}
