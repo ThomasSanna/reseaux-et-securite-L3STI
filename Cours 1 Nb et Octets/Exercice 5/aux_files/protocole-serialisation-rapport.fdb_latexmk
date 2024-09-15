@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1726426032.26159 "c:/Users/thoma/Desktop/programmes/L3STI/reseaux-et-securite-L3STI/Cours 1 Nb et Octets/Exercice 5/protocole-serialisation-rapport.tex" "protocole-serialisation-rapport.pdf" "protocole-serialisation-rapport" 1726426033.03037 0
+["pdflatex"] 1726426262.17633 "c:/Users/thoma/Desktop/programmes/L3STI/reseaux-et-securite-L3STI/Cours 1 Nb et Octets/Exercice 5/protocole-serialisation-rapport.tex" "protocole-serialisation-rapport.pdf" "protocole-serialisation-rapport" 1726426262.86939 0
   "C:/Users/thoma/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1726142339 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/thoma/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1726420166 11548 e1e99e1e6596f05b6fdd1d9e144436b4 ""
   "C:/Users/thoma/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1726138001 24225046 7d2395529d242c981bb752dd68024bea ""
@@ -49,9 +49,9 @@
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/listings/listings.sty" 1679057124 80947 75a96bb4c9f40ae31d54a01d924df2ff ""
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/listings/lstlang1.sty" 1679057124 205154 31132370016e8c97e49bc3862419679b ""
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/listings/lstmisc.sty" 1679057124 77021 d05e9115c67855816136d82929db8892 ""
-  "aux_files/protocole-serialisation-rapport.aux" 1726426032 1159 c3c80b91978f2e927cd35b61656358fd "pdflatex"
-  "c:/Users/thoma/Desktop/programmes/L3STI/reseaux-et-securite-L3STI/Cours 1 Nb et Octets/Exercice 5/protocole-serialisation-rapport.tex" 1726426031 3803 4dfc1940afda24b775556e6ec94e3ad3 ""
-  "protocole-serialisation-rapport.tex" 1726426031 3803 4dfc1940afda24b775556e6ec94e3ad3 ""
+  "aux_files/protocole-serialisation-rapport.aux" 1726426262 1061 08ad02e3147da1679af2bc4abac70d98 "pdflatex"
+  "c:/Users/thoma/Desktop/programmes/L3STI/reseaux-et-securite-L3STI/Cours 1 Nb et Octets/Exercice 5/protocole-serialisation-rapport.tex" 1726426262 3471 a9bbbc6e260f78c97bc74432be546869 ""
+  "protocole-serialisation-rapport.tex" 1726426262 3471 a9bbbc6e260f78c97bc74432be546869 ""
   (generated)
   "aux_files/protocole-serialisation-rapport.aux"
   "aux_files/protocole-serialisation-rapport.log"
