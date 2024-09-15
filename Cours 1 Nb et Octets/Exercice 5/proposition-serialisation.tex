@@ -1,0 +1,96 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+
+\title{Protocole de Sérialisation}
+\author{Sanna Thomas}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Protocole de Sérialisation}
+
+Pour enregistrer l'entrée d'une manette pour une frame en utilisant le moins de mémoire possible, nous proposons le protocole de sérialisation suivant:
+
+\begin{itemize}
+  \item \textbf{Position des joysticks analogiques}:
+  \begin{itemize}
+    \item Chaque joystick a deux coordonnées $(x, y)$ avec des valeurs dans l'intervalle $[-1, 1]$.
+    \item Chaque coordonnée est représentée par un nombre flottant de 32 bits (4 octets) après quantification.
+    \item \textbf{Exemple}: Si le joystick gauche est à la position $(0.2, -0.5)$ et le joystick droit à la position $(-1, 1)$, alors chaque coordonnée sera convertie en un nombre flottant de 32 bits.
+  \end{itemize}
+  \item \textbf{Appui des boutons d'action}:
+  \begin{itemize}
+    \item Il y a 9 boutons d'action différents.
+    \item Chaque bouton est représenté par 1 bit (1 pour appuyé, 0 pour relâché).
+    \item \textbf{Exemple}: Si les boutons 1, 3 et 5 sont appuyés, et les autres sont relâchés, cela sera représenté par la séquence binaire '101010000'.
+  \end{itemize}
+\end{itemize}
+
+\section*{Organisation des Données}
+
+\begin{itemize}
+  \item 2 joysticks $\times$ 2 coordonnées $\times$ 4 octets = 16 octets pour les joysticks.
+  \item 9 bits pour les boutons (arrondis à 2 octets pour simplifier l'alignement).
+\end{itemize}
+
+\section*{Exemple Complet}
+
+Supposons que nous avons les entrées suivantes pour une frame:
+\begin{itemize}
+  \item Joystick gauche: $(0.2, -0.5)$
+  \item Joystick droit: $(-1, 1)$
+  \item Boutons appuyés: 1, 3, 5
+\end{itemize}
+
+\textbf{Étape 1: Sérialisation des joysticks}
+\begin{itemize}
+  \item Joystick gauche $(0.2, -0.5)$: chaque coordonnée est convertie en un nombre flottant de 32 bits.
+    \begin{itemize}
+      \item $0.2$ en binaire (4 octets): '00111110010011001100110011001101'
+      \item $-0.5$ en binaire (4 octets): '10111111000000000000000000000000'
+    \end{itemize}
+  \item Joystick droit $(-1, 1)$: chaque coordonnée est convertie en un nombre flottant de 32 bits.
+    \begin{itemize}
+      \item $-1$ en binaire (4 octets): '10111111100000000000000000000000'
+      \item $1$ en binaire (4 octets): '00111111100000000000000000000000'
+    \end{itemize}
+\end{itemize}
+
+\textbf{Étape 2: Sérialisation des boutons}
+\begin{itemize}
+  \item Boutons appuyés: 1, 3, 5
+  \item Séquence binaire: '101010000'
+\end{itemize}
+
+\section*{Total}
+
+Au total, nous avons besoin de 16 octets pour les joysticks et 2 octets pour les boutons, soit un total de 18 octets pour représenter toutes les informations.
+
+\textbf{Résultat binaire final}:
+\begin{itemize}
+  \item Joystick gauche $(0.2, -0.5)$:
+  \begin{itemize}
+    \item '00111110010011001100110011001101'
+    \item '10111111000000000000000000000000'
+  \end{itemize}
+  \item Joystick droit $(-1, 1)$:
+  \begin{itemize}
+    \item '10111111100000000000000000000000'
+    \item '00111111100000000000000000000000'
+  \end{itemize}
+  \item Boutons appuyés: '101010000' (arrondi à 2 octets: '10101000 00')
+\end{itemize}
+
+Le résultat binaire final est donc:
+\[
+00111110010011001100110011001101
+\]
+\[10111111000000000000000000000000\]
+\[10111111100000000000000000000000\]
+\[00111111100000000000000000000000\]
+\[10101000 \ 00\]
+
+\end{document}

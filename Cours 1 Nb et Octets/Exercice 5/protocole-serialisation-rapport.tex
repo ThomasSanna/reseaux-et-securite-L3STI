@@ -1,0 +1,99 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{color}
+
+\title{Exercice 5 — Mini-projet de conception protocole}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+L'objectif de cet exercice est de concevoir un protocole de sérialisation utilisant le moins de mémoire possible pour enregistrer l'entrée d'une manette pour une frame. Les informations à enregistrer sont:
+\begin{itemize}
+    \item La position de deux joysticks analogiques (deux coordonnées à valeurs dans $[-1, 1]$ sur les axes x et y).
+    \item L'appui de 9 boutons d'action différents.
+\end{itemize}
+
+La fonction de sérialisation retournera une instance de \texttt{Bytes}, résultat de la fonction \texttt{struct.pack}, et la fonction de désérialisation prendra en entrée une instance de \texttt{Bytes}. Le choix de la structure de données pour représenter la manette est libre.
+
+\section{Protocole de Sérialisation}
+
+On peut représenter les données de cette façon:
+\begin{itemize}
+    \item Chaque coordonnée des joysticks est représentée par un float (4 octets), sachant que chaque joystick a deux coordonnées entre -1 et 1.
+    \item Les états des 9 boutons sont représentés par un entier non signé de 2 octets (16 bits), où chaque bit représente l'état d'un bouton (1 pour appuyé, 0 pour non appuyé).
+\end{itemize}
+
+Ainsi, la structure totale occupe $4 \times 4 + 2 = 18$ octets.
+
+\section{Implémentation en Python}
+
+\subsection{Fonction de Sérialisation}
+
+La fonction de sérialisation convertit les états des boutons en un entier et empaquette les données en octets.
+
+\begin{lstlisting}[language=Python, caption=Fonction de Serialisation]
+import struct
+
+def serialiser(joystickGauche, joystickDroit, boutons):
+    gaucheX, gaucheY = joystickGauche
+    droitX, droitY = joystickDroit
+
+    # convertir les etats des boutons en un seul entier
+    boutonsInt = 0
+    for i, appuye in enumerate(boutons):
+        if appuye:
+            boutonsInt += 2**i
+
+    # empaqueter les donnees en octets
+    donnees = struct.pack("!4fH", gX,gY,dX,dY,boutInt)
+    return donnees
+\end{lstlisting}
+
+\subsection{Fonction de Désérialisation}
+
+La fonction de désérialisation dépaquette les données des octets et convertit l'entier en une liste de booléens représentant l'état des boutons.
+
+\begin{lstlisting}[language=Python, caption=Fonction de Deserialisation]
+def deserialiser(donnees):
+    gX,gY,dX,dY,boutInt = struct.unpack("!4fH", donnees)
+
+    # convertir l'entier en une liste de booleens
+    boutons = []
+    for i in range(9):
+        masqueBit = boutonsInt & 2**i
+        boutons.append(bool(masqueBit != 0))
+
+    joystickGauche = (gaucheX, gaucheY)
+    joystickDroit = (droitX, droitY)
+    return joystickGauche, joystickDroit, boutons
+\end{lstlisting}
+
+\subsection{Exemple d'Utilisation}
+
+\begin{lstlisting}[language=Python, caption=Exemple d'Utilisation]
+# exemple
+joyGauche = (0.2, -0.5)
+joyDroit = (-1.0, 1.0)
+boutons = [True, False, True, False, ...]
+
+donneesSer = serialiser(joyGauche, joyDroit, boutons)
+print(f"Donnees serialisees: {donneesSer}")
+
+joyGDes, joyDDes, boutDes = deserialiser(donneesSer)
+print(f"Joystick gauche deserialise: {joyGDes}")
+print(f"Joystick droit deserialisee: {joyDDes}")
+print(f"Boutons deserialises: {boutDes}")
+\end{lstlisting}
+
+\section{Conclusion}
+
+Le protocole de sérialisation proposé permet de représenter efficacement les données d'une manette en utilisant seulement 18 octets. Les fonctions de sérialisation et de désérialisation sont implémentées en Python en utilisant le module \texttt{struct} pour empaqueter et dépaqueter les données.
+
+\end{document}
