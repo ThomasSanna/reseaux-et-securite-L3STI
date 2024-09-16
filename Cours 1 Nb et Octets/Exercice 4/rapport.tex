@@ -1,0 +1,170 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr} % permet de creer des entetes et pieds de page
+
+
+% Configuration de l'en-tête et du pied de page
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Sanna Thomas}
+\rhead{L3 STI}
+\chead{Rapport Exercice 3: Réseaux et Sécurité}
+\rfoot{Page n°\thepage}
+
+
+% Configuration du package listings
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue!80!black},
+  commentstyle=\color{green!60!black},
+  morecomment=[s][\color{gray!80}]{"""}{"""},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+  numbersep=10pt,
+  backgroundcolor=\color{gray!10},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4,
+  captionpos=b,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+  inputencoding=utf8,
+  extendedchars=true,
+  literate={á}{{\'a}}1 {ã}{{\~a}}1 {é}{{\'e}}1 {è}{{\`e}}1 {ê}{{\^e}}1 {ë}{{\"e}}1 {û}{{\^u}}1 {ù}{{\`u}}1 {â}{{\^a}}1 {à}{{\`a}}1 {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1 {É}{{\'E}}1 {Ê}{{\^E}}1 {È}{{\`E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1 {»}{{\guillemotright}}1 {°}{{\textdegree}}1 {~}{{\textasciitilde}}1
+}
+
+\title{Rapport Exercice 4}
+\author{Sanna Thomas, L3STI}
+\date{\today}
+
+\setlength{\parindent}{1cm}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction de l'exercice 4}
+
+Les couleurs sont souvent décomposées en composantes rouge, verte et bleue en infor-
+matique, et représentées par une série de réels compris entre 0 et 1 (inclus).
+
+\section*{Question 1 --- Représentation des couleurs avec double}
+
+En utilisant des doubles pour représenter les couleurs, chaque composante de couleur est représentée par un double de 64 bits (8 octets).
+
+Donc, pour une couleur, nous avons 3 doubles $\times$ 8 octets = 24 octets.
+
+\section*{Question 2 --- Représentation des couleurs avec des entiers}
+
+En utilisant des entiers pour représenter les couleurs, chaque composante de couleur est représentée par un entier compris entre 0 et 255, soit 8 bits (1 octet).
+
+Donc, pour une couleur, nous avons 3 entiers $\times$ 1 octet = 3 octets, soit 8 fois moins que la représentation avec des doubles. Cependant, la précision est moindre.
+
+\section*{Question 3 --- Fonction de conversion et empaquetage dans un entier}
+
+L'objectif est de convertir les composantes de couleur en entiers et de les empaqueter dans un seul entier.
+
+\subsection*{Variables}
+
+\texttt{r}, \texttt{v}, \texttt{b}: les composantes de couleur en entier, comprises entre 0 et 255.
+
+\subsection*{Fonction de paquetage}
+
+La fonction de paquetage prend les composantes de couleur en entier et les empaquette dans un seul entier. Elle vérifie tout d'abord que les composantes sont bien comprises entre 0 et 255, puis les empaquette dans un seul entier en utilisant des opérateurs bitwise tels que $\ll$ (Décalage à gauche), pour mettre côte-à-côte les différents octets, et $\vert$ (OU inclusif logique).
+
+\begin{lstlisting}[caption=Fonction de Paquetage]
+
+def empaquetage(r:int, v:int, b:int)->int:
+"""
+Empaquetage de couleurs dans un entier 
+
+Args:
+    r (int): la couleur rouge, comprise entre 0 et 255.
+    v (int): la couleur verte, comprise entre 0 et 255.
+    b (int): la couleur bleue, comprise entre 0 et 255.
+
+Returns:
+    int: Empaquetage sous forme d'entier
+"""
+assert 0 <= r <= 255 and 0 <= v <= 255 and 0 <= b <= 255, "Les couleurs doivent être comprises entre 0 et 255"
+
+return b | (v << 8) | (r << 16)
+
+\end{lstlisting}
+
+\break\subsection*{Fonction de dépaquetage}
+
+La fonction de dépaquetage prend un entier empaqueté et le décompose en ses composantes de couleur en entier. Elle utilise des opérateurs bitwise tels que $\gg$ (Décalage à droite) et $\&$ (ET logique) pour extraire les différents octets de l'entier empaqueté.
+
+\begin{lstlisting}[caption=Fonction de Paquetage]
+
+def depaquetage(paquet:int)->tuple[int, int, int]:
+"""
+Dépaquetage 
+
+Args:
+    paquet (int): La couleur sous forme de paquet à convertir
+
+Returns:
+    tuple[int, int, int]: Retourne les entiers des couleurs rouge, bleue et verte
+"""
+r = (paquet >> 16) & 0b11111111 # On réduit le nombre à 8 bits pour obtenir la couleur rouge
+v = (paquet >> 8) & 0b11111111
+b = (paquet) & 0b11111111
+
+return r, v, b
+
+\end{lstlisting}
+
+\subsection*{Exemple et Output}
+\subsubsection*{Explication étape par étape}
+Supposons que nous avons les composantes de couleur suivantes:
+\begin{itemize}
+  \item Rouge: 122
+  \item Vert: 22
+  \item Bleu: 244
+\end{itemize}
+
+\textbf{Étape 1: définition des couleurs}
+\begin{itemize}
+  \item Rouge: 122 en binaire (1 octet): '01111010'
+  \item Vert: 22 en binaire (1 octet): '00010110'
+  \item Bleu: 244 en binaire (1 octet): '11110100'
+\end{itemize}
+
+\textbf{Étape 2: Empaquetage des couleurs dans un entier}
+\begin{itemize}
+  \item Empaquetage: '01111010(r) 00010110(v) 11110100(b)' en binaire (24 bits) = 8001268 en décimal.
+\end{itemize}
+
+\textbf{Étape 3: Dépaquetage de l'entier}
+\begin{itemize}
+  \item Dépaquetage de 8001268 en entiers: Rouge: 122, Vert: 22, Bleu: 244.
+\end{itemize}
+
+\subsubsection*{Exemple d'éxécution}
+\begin{lstlisting}[caption=Exemple d'éxécution]
+r, v, b = (122, 22, 244)
+print(empaquetage(r, v, b))
+print(depaquetage(empaquetage(r, v, b)))
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Output]
+>>> 8001268
+>>> (122, 22, 244)
+\end{lstlisting}
+
+
+\end{document}
