@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1726476252.56017 "c:/Users/thoma/Desktop/programmes/L3STI/reseaux-et-securite-L3STI/Cours 1 Nb et Octets/Exercice 3/rapport-exo3.tex" "rapport-exo3.pdf" "rapport-exo3" 1726476253.39144 0
-  "C:/Users/thoma/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1726473177 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
+["pdflatex"] 1726477005.442 "c:/Users/thoma/Desktop/programmes/L3STI/reseaux-et-securite-L3STI/Cours 1 Nb et Octets/Exercice 3/rapport-exo3.tex" "rapport-exo3.pdf" "rapport-exo3" 1726477006.38365 0
+  "C:/Users/thoma/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1726476705 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/thoma/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1726420166 11548 e1e99e1e6596f05b6fdd1d9e144436b4 ""
   "C:/Users/thoma/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1726138001 24225046 7d2395529d242c981bb752dd68024bea ""
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/tcrm1000.tfm" 993062508 1436 c7f957a372ef2fbe93c0982f96625e12 ""
@@ -57,6 +57,7 @@
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/base/inputenc.sty" 1705273578 5048 425739d70251273bf93e3d51f3c40048 ""
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/base/size10.clo" 1705273578 8448 dbc0dbf4156c0bb9ba01a1c685d3bad0 ""
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1623003186 13886 d1306dcf79a944f6988e688c1785f9ce ""
+  "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/fancyhdr/fancyhdr.sty" 1721923356 18785 68479cdf1125ff4e246e1d01e45551a1 ""
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/graphics-cfg/color.cfg" 1465894292 1213 620bba36b25224fa9b7e1ccb4ecb76fd ""
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/graphics-cfg/graphics.cfg" 1465894292 1224 978390e9c2234eab29404bc21b268d1e ""
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/graphics-def/pdftex.def" 1663918690 19448 1e988b341dda20961a6b931bcde55519 ""
@@ -72,9 +73,9 @@
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/listings/lstmisc.sty" 1679057124 77021 d05e9115c67855816136d82929db8892 ""
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/tools/indentfirst.sty" 1700599895 1618 c5f08dcf49a56107311a81073b35fa4e ""
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1700127522 55487 80a65caedd3722f4c20a14a69e785d8f ""
-  "aux_files/rapport-exo3.aux" 1726476253 966 ef61148b52c45957fae4a8ed71882938 "pdflatex"
-  "c:/Users/thoma/Desktop/programmes/L3STI/reseaux-et-securite-L3STI/Cours 1 Nb et Octets/Exercice 3/rapport-exo3.tex" 1726476247 7890 8807ee745cd0f1f11906133a00186ed4 ""
-  "rapport-exo3.tex" 1726476247 7890 8807ee745cd0f1f11906133a00186ed4 ""
+  "aux_files/rapport-exo3.aux" 1726477006 966 ef61148b52c45957fae4a8ed71882938 "pdflatex"
+  "c:/Users/thoma/Desktop/programmes/L3STI/reseaux-et-securite-L3STI/Cours 1 Nb et Octets/Exercice 3/rapport-exo3.tex" 1726477004 8200 786e8386fe720cffbbfcbc12ee9115a6 ""
+  "rapport-exo3.tex" 1726477004 8200 786e8386fe720cffbbfcbc12ee9115a6 ""
   (generated)
   "aux_files/rapport-exo3.aux"
   "aux_files/rapport-exo3.log"

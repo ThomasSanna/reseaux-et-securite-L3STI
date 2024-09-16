@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1726426313.52658 "c:/Users/thoma/Desktop/programmes/L3STI/reseaux-et-securite-L3STI/Cours 1 Nb et Octets/Exercice 5/proposition-serialisation.tex" "proposition-serialisation.pdf" "proposition-serialisation" 1726426314.08689 0
-  "C:/Users/thoma/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1726142339 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
+["pdflatex"] 1726476984.75502 "c:/Users/thoma/Desktop/programmes/L3STI/reseaux-et-securite-L3STI/Cours 1 Nb et Octets/Exercice 5/proposition-serialisation.tex" "proposition-serialisation.pdf" "proposition-serialisation" 1726476985.26111 0
+  "C:/Users/thoma/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1726476705 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/thoma/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1726420166 11548 e1e99e1e6596f05b6fdd1d9e144436b4 ""
   "C:/Users/thoma/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1726138001 24225046 7d2395529d242c981bb752dd68024bea ""
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/tcrm1000.tfm" 993062508 1436 c7f957a372ef2fbe93c0982f96625e12 ""
@@ -34,10 +34,11 @@
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/base/article.cls" 1705273579 20144 147463a6a579f4597269ef9565205cfe ""
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/base/inputenc.sty" 1705273578 5048 425739d70251273bf93e3d51f3c40048 ""
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/base/size10.clo" 1705273578 8448 dbc0dbf4156c0bb9ba01a1c685d3bad0 ""
+  "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/fancyhdr/fancyhdr.sty" 1721923356 18785 68479cdf1125ff4e246e1d01e45551a1 ""
   "C:/Users/thoma/AppData/Local/Programs/MiKTeX/tex/latex/l3backend/l3backend-pdftex.def" 1704400941 30006 57b07afb710ee2f649c65cfbafda39c1 ""
-  "aux_files/proposition-serialisation.aux" 1726426313 32 044b7f8fc9779af7531264e0c5c84b6d "pdflatex"
-  "c:/Users/thoma/Desktop/programmes/L3STI/reseaux-et-securite-L3STI/Cours 1 Nb et Octets/Exercice 5/proposition-serialisation.tex" 1726426313 3540 2d88aed0c89d14efa999bd393091586a ""
-  "proposition-serialisation.tex" 1726426313 3540 2d88aed0c89d14efa999bd393091586a ""
+  "aux_files/proposition-serialisation.aux" 1726476985 32 044b7f8fc9779af7531264e0c5c84b6d "pdflatex"
+  "c:/Users/thoma/Desktop/programmes/L3STI/reseaux-et-securite-L3STI/Cours 1 Nb et Octets/Exercice 5/proposition-serialisation.tex" 1726476983 3811 2bfec4590e4bd9936bb669d055b234ba ""
+  "proposition-serialisation.tex" 1726476983 3811 2bfec4590e4bd9936bb669d055b234ba ""
   (generated)
   "aux_files/proposition-serialisation.aux"
   "aux_files/proposition-serialisation.log"

@@ -7,7 +7,19 @@
 \usepackage{indentfirst}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{fancyhdr} % permet de creer des entetes et pieds de page
 
+
+% Configuration de l'en-tête et du pied de page
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Sanna Thomas}
+\rhead{L3 STI}
+\chead{Rapport Exercice 3: Réseaux et Sécurité}
+\rfoot{Page n°\thepage}
+
+
+% Configuration du package listings
 \lstset{
   language=Python,
   basicstyle=\ttfamily\small,
