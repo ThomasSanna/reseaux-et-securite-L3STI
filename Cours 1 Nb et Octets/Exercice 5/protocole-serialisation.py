@@ -34,15 +34,18 @@ def deserialiser(donnees):
     return joystickGauche, joystickDroit, boutons
 
 
-# exemple
-joystickGauche = (0.2, -0.5)
-joystickDroit = (-1.0, 1.0)
-boutons = [True, False, True, False, True, False, False, False, False]
+def main():
+    joystickGauche = (0.2, -0.5)
+    joystickDroit = (-1.0, 1.0)
+    boutons = [True, False, True, False, True, False, False, False, False]
 
-donneesSerialisees = serialiser(joystickGauche, joystickDroit, boutons)
-print(f"Données sérialisées: {donneesSerialisees}")
+    donneesSerialisees = serialiser(joystickGauche, joystickDroit, boutons)
+    print(f"Données sérialisées: {donneesSerialisees}")
 
-joystickGaucheDeserialise, joystickDroitDeserialise, boutonsDeserialises = deserialiser(donneesSerialisees)
-print(f"Joystick gauche désérialisé: {joystickGaucheDeserialise}")
-print(f"Joystick droit désérialisé: {joystickDroitDeserialise}")
-print(f"Boutons désérialisés: {boutonsDeserialises}")
+    joystickGaucheDeserialise, joystickDroitDeserialise, boutonsDeserialises = deserialiser(donneesSerialisees)
+    print(f"Joystick gauche désérialisé: {joystickGaucheDeserialise}")
+    print(f"Joystick droit désérialisé: {joystickDroitDeserialise}")
+    print(f"Boutons désérialisés: {boutonsDeserialises}")
+
+if __name__ == "__main__":
+    main()

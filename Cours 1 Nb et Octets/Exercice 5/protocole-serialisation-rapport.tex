@@ -1,8 +1,38 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{indentfirst}
 \usepackage{listings}
-\usepackage{color}
+\usepackage{xcolor}
+
+
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue!80!black},
+  commentstyle=\color{green!60!black},
+  morecomment=[s][\color{gray!80}]{"""}{"""},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+  numbersep=10pt,
+  backgroundcolor=\color{gray!10},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4,
+  captionpos=b,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+  inputencoding=utf8,
+  extendedchars=true,
+  literate={á}{{\'a}}1 {ã}{{\~a}}1 {é}{{\'e}}1 {è}{{\`e}}1 {ê}{{\^e}}1 {ë}{{\"e}}1 {û}{{\^u}}1 {ù}{{\`u}}1 {â}{{\^a}}1 {à}{{\`a}}1 {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1 {É}{{\'E}}1 {Ê}{{\^E}}1 {È}{{\`E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1 {»}{{\guillemotright}}1 {°}{{\textdegree}}1 {~}{{\textasciitilde}}1
+}
 
 \title{Exercice 5 — Mini-projet de conception protocole}
 \author{Sanna Thomas, L3STI}
@@ -38,7 +68,7 @@ Ainsi, la structure totale occupe $4 \times 4 + 2 = 18$ octets.
 
 La fonction de sérialisation convertit les états des boutons en un entier et empaquette les données en octets.
 
-\begin{lstlisting}[language=Python, caption=Fonction de Serialisation]
+\begin{lstlisting}[caption=Fonction de Serialisation]
 import struct
 
 def serialiser(joystickGauche, joystickDroit, boutons):
@@ -52,7 +82,7 @@ def serialiser(joystickGauche, joystickDroit, boutons):
             boutonsInt += 2**i
 
     # empaqueter les donnees en octets
-    donnees = struct.pack("!4fH", gX,gY,dX,dY,boutInt)
+    donnees = struct.pack("!4fH", gaucheX, gaucheY, droitX, droitY, boutonsInt)
     return donnees
 \end{lstlisting}
 
@@ -60,9 +90,9 @@ def serialiser(joystickGauche, joystickDroit, boutons):
 
 La fonction de désérialisation dépaquette les données des octets et convertit l'entier en une liste de booléens représentant l'état des boutons.
 
-\begin{lstlisting}[language=Python, caption=Fonction de Deserialisation]
+\begin{lstlisting}[caption=Fonction de Deserialisation]
 def deserialiser(donnees):
-    gX,gY,dX,dY,boutInt = struct.unpack("!4fH", donnees)
+    gaucheX, gaucheY, droitX, droitY, boutonsInt = struct.unpack("!4fH", donnees)
 
     # convertir l'entier en une liste de booleens
     boutons = []
@@ -75,15 +105,15 @@ def deserialiser(donnees):
     return joystickGauche, joystickDroit, boutons
 \end{lstlisting}
 
-\subsection{Exemple d'Utilisation}
+\break\subsection{Exemple d'Utilisation}
 
-\begin{lstlisting}[language=Python, caption=Exemple d'Utilisation]
+\begin{lstlisting}[caption={Exemple d'Utilisation}]
 # exemple
-joyGauche = (0.2, -0.5)
-joyDroit = (-1.0, 1.0)
+joystickGauche = (0.2, -0.5)
+joystickDroit = (-1.0, 1.0)
 boutons = [True, False, True, False, ...]
 
-donneesSer = serialiser(joyGauche, joyDroit, boutons)
+donneesSer = serialiser(joystickGauche, joystickDroit, boutons)
 print(f"Donnees serialisees: {donneesSer}")
 
 joyGDes, joyDDes, boutDes = deserialiser(donneesSer)
