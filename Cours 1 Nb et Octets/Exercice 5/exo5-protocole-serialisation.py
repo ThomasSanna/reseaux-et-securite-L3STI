@@ -1,6 +1,6 @@
 import struct
 
-def serialiser(joystickGauche, joystickDroit, boutons):
+def serialiser(joystickGauche: tuple[float, float], joystickDroit: tuple[float, float], boutons: list):
 
     gaucheX, gaucheY = joystickGauche
     droitX, droitY = joystickDroit
@@ -18,7 +18,7 @@ def serialiser(joystickGauche, joystickDroit, boutons):
     return donnees
 
 
-def deserialiser(donnees):
+def deserialiser(donnees: bytes):
   
     gaucheX, gaucheY, droitX, droitY, boutonsInt = struct.unpack("!4fH", donnees) # !4fH signifie: "4 f (floats) et 1 H (entier non signé (unsigned short)) en ! (big-endian)". Voir https://docs.python.org/3/library/struct.html#format-characters pour plus d'informations.
 

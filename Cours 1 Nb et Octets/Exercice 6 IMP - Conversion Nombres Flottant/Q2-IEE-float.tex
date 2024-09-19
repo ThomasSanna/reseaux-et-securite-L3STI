@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr} % permet de creer des entetes et pieds de page
+
+
+% Configuration de l'en-tête et du pied de page
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Sanna Thomas}
+\rhead{L3 STI}
+\chead{Exercice 6 Q.2: Conversion IEE vers flottant}
+\rfoot{Page n°\thepage}
+
+\title{Rapport Exercice 4}
+\author{Sanna Thomas, L3STI}
+\date{\today}
+
+\setlength{\parindent}{1cm}
+
+\begin{document}
+
+\maketitle
+
+\section*{1. 0 10001000 00100101001000010000000}
+\subsection*{Signe}
+Le bit de signe est 0, donc le nombre est positif.
+s = 1
+
+\subsection*{Exposant}
+L'exposant est 10010000 en binaire, soit 16 + 128 = 144 en décimal. 
+
+e = 136
+
+\subsection*{Mantisse}
+La mantisse est 0.0100101001000010000000 en binaire
+
+La mantisse est donc $2^{-3} + 2^{-6} + 2^{-8} + 2^{-11} + 2^{-16}$ = 0.14503479003 en décimal.
+
+\subsection*{Nombre flottant}
+
+\[x = s \times 2^{e-127} \times (1+m) \]
+\[ x = 1 \times 2^{9} \times (1+2^{-3} + 2^{-6} + 2^{-8} + 2^{-11} + 2^{-16})\]
+\[ x = 586.2578125 \]
+
+
+\break\section*{2. 1 01111110 01110000000000000000000}
+\subsection*{Signe}
+Le bit de signe est 1, donc le nombre est négatif.
+s = -1
+
+\subsection*{Exposant}
+L'exposant est 01111110 en binaire, soit 2 + 4 + 8 + 16 + 32 + 64 = 126 en décimal. 
+
+\[e = 126\]
+
+\subsection*{Mantisse}
+La mantisse est 0.01110000000000000000000 en binaire
+
+\[ m = 2^{-2} + 2^{-3} + 2^{-4} \]
+
+\subsection*{Nombre flottant}
+
+\[x = s \times 2^{e-127} \times (1+m) \]
+\[ x = -1 \times 2^{-1} \times (1+2^{-2} + 2^{-3} + 2^{-4})\]
+\[ x = -0.71875 \]
+
+
+\end{document}

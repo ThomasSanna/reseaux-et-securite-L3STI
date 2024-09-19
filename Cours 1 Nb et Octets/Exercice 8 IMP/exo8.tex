@@ -1,0 +1,128 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr} % permet de creer des entetes et pieds de page
+
+
+% Configuration de l'en-tête et du pied de page
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Sanna Thomas}
+\rhead{L3 STI}
+\chead{Exercice 8}
+\rfoot{Page n°\thepage}
+
+\title{Rapport Exercice 8}
+\author{Sanna Thomas, L3STI}
+\date{\today}
+
+\setlength{\parindent}{1cm}
+
+\begin{document}
+
+\maketitle
+
+\section*{Contexte}
+
+Pour transférer les données aux clients, le protocole de sérialisation binaire correspond
+à la transmission de ces données, toutes encodées en big-endian, dans l’ordre:
+\begin{itemize}
+  \item Le numéro de signature de l’état (entier 32 bits non-signé);
+  \item Le nombre d’utilisateurs (1 octet non-signé);
+  \item Pour chaque utilisateur:
+  \begin{itemize}
+    \item son identifiant (1 octet non-signé);
+    \item sa coordonnée sur x (short int signé);
+    \item sa coordonnée sur y (short int signé).
+  \end{itemize}
+\end{itemize}
+Interpréter le paquet reçu par le client ci-dessous:
+
+\[00000000 \ 00000000 \ 00000000 \ 00011010\]
+\[00000011 \ 10011101 \ 00000100 \ 11000000\]
+\[10000000 \ 00001111 \ 01011001 \ 10000000\]
+\[00011110 \ 10000000 \ 00000010 \ 11110110\]
+\[00001000 \ 00000000 \ 00000000 \ 00001000\]
+
+\section{Numéro de signature de l'état}
+
+Le numéro de signature de l'état est codé sur 32 bits non-signés.
+\[00000000 \ 00000000 \ 00000000 \ 00011010\]
+Le numéro de signature de l'état est 26 en décimal.
+
+\section{Nombre d'utilisateurs}
+
+Le nombre d'utilisateurs est codé sur 1 octet non-signé.
+\[00000011\] 
+Cela donne 3 en décimal. Il y a donc 3 utilisateurs.
+
+\section{Utilisateur 1}
+
+\subsection{Identifiant}
+
+L'identifiant de l'utilisateur est codé sur 1 octet non-signé.
+\[10011101\]
+Cela donne 157 en décimal. L'identifiant de l'utilisateur 1 est 157.
+
+\subsection{Coordonnée sur x}
+
+La coordonnée sur x de l'utilisateur est codée sur un short int signé soit 2 octets.
+\[00000100 \ 11000000\]
+Cela donne 1216 en décimal. La coordonnée sur x de l'utilisateur 1 est 1124.
+
+\subsection{Coordonnée sur y}
+
+La coordonnée sur y de l'utilisateur est codée sur un short int signé soit 2 octets.
+\[10000000 \ 00001111\]
+Cela donne -15 en décimal. La coordonnée sur y de l'utilisateur 1 est -15.
+
+\section{Utilisateur 2}
+
+\subsection{Identifiant}
+
+L'identifiant de l'utilisateur est codé sur 1 octet non-signé.
+\[01011001\]
+Cela donne 89 en décimal. L'identifiant de l'utilisateur 2 est 89.
+
+\subsection{Coordonnée sur x}
+
+La coordonnée sur x de l'utilisateur est codée sur un short int signé soit 2 octets.
+\[10000000 \ 00011110\]
+Cela donne -30 en décimal. La coordonnée sur x de l'utilisateur 2 est -30.
+
+\subsection{Coordonnée sur y}
+
+La coordonnée sur y de l'utilisateur est codée sur un short int signé soit 2 octets.
+\[10000000 \ 00000010\]
+Cela donne -2 en décimal. La coordonnée sur y de l'utilisateur 2 est -2.
+
+\section{Utilisateur 3}
+
+\subsection{Identifiant}
+
+L'identifiant de l'utilisateur est codé sur 1 octet non-signé.
+\[11110110\]
+Cela donne 246 en décimal. L'identifiant de l'utilisateur 3 est 246.
+
+\subsection{Coordonnée sur x}
+
+La coordonnée sur x de l'utilisateur est codée sur un short int signé soit 2 octets.
+\[00001000 \ 00000000\]
+Cela donne 2048 en décimal. La coordonnée sur x de l'utilisateur 3 est 2048.
+
+\subsection{Coordonnée sur y}
+
+La coordonnée sur y de l'utilisateur est codée sur un short int signé soit 2 octets.
+\[00000000 \ 00001000\]
+Cela donne 8 en décimal. La coordonnée sur y de l'utilisateur 3 est 8.
+
+
+
+
+\end{document}
