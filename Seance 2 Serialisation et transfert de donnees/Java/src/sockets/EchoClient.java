@@ -29,4 +29,15 @@ public class EchoClient {
     clientSocket.close();
   }
 
+  public Entity2D getEntity2DFromServer() {
+    Entity2D entityReceived = new Entity2D();
+    try (
+      DataInputStream data = new DataInputStream(clientSocket.getInputStream())
+    ) {
+      entityReceived = Entity2D.fromBytes(data);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return entityReceived;
+  }
 }

@@ -16,7 +16,7 @@ public class testEntity2Dp2 {
     ent_1.putItem(-1);
 
     // Writing into a file using writeExternal
-    try (FileOutputStream fos = new FileOutputStream("donnees_external.ser");
+    try (FileOutputStream fos = new FileOutputStream("Seance 2 Serialisation et transfert de donnees/donnees/donnees_external.ser");
          ObjectOutputStream oos = new ObjectOutputStream(fos)) {
       ent_1.writeExternal(oos);
     } catch (IOException e) {
@@ -25,7 +25,7 @@ public class testEntity2Dp2 {
 
     // Reading from the file using readExternal
     Entity2D ent_2 = new Entity2D();
-    try (FileInputStream fis = new FileInputStream("donnees_external.ser");
+    try (FileInputStream fis = new FileInputStream("Seance 2 Serialisation et transfert de donnees/donnees/donnees_external.ser");
          ObjectInputStream ois = new ObjectInputStream(fis)) {
       ent_2.readExternal(ois);
     } catch (IOException | ClassNotFoundException e) {

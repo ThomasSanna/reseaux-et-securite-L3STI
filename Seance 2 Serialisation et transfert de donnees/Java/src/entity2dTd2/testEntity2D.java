@@ -18,7 +18,7 @@ public class testEntity2D {
         ent_1.putItem(2);
 
         // Writing into a file using toBytes
-        try (FileOutputStream fos = new FileOutputStream("donnees_external_p3.ser");
+        try (FileOutputStream fos = new FileOutputStream("Seance 2 Serialisation et transfert de donnees/donnees/donnees_external_p3.ser");
              DataOutputStream data = new DataOutputStream(fos)) {
             ent_1.toBytes(data);
         } catch (IOException e) {
@@ -27,7 +27,7 @@ public class testEntity2D {
 
         // Reading from the file using fromBytes
         Entity2D ent_2 = new Entity2D();
-        try (FileInputStream fis = new FileInputStream("donnees_external_p3.ser");
+        try (FileInputStream fis = new FileInputStream("Seance 2 Serialisation et transfert de donnees/donnees/donnees_external_p3.ser");
             DataInputStream data = new DataInputStream(fis)) {
             ent_2 = Entity2D.fromBytes(data);
         } catch (IOException e) {
