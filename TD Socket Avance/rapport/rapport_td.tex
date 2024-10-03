@@ -1,0 +1,302 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr} % permet de creer des entetes et pieds de page
+
+
+% Configuration de l'en-tête et du pied de page
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Sanna Thomas}
+\rhead{L3 STI}
+\chead{Rapport Exercice 5: Réseaux et Sécurité}
+\rfoot{Page n°\thepage}
+
+% Configuration du package listings
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue!80!black},
+  commentstyle=\color{green!60!black},
+  morecomment=[s][\color{gray!80}]{"""}{"""},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+  numbersep=10pt,
+  backgroundcolor=\color{gray!10},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4,
+  captionpos=b,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+  inputencoding=utf8,
+  extendedchars=true,
+  literate={á}{{\'a}}1 {ã}{{\~a}}1 {é}{{\'e}}1 {è}{{\`e}}1 {ê}{{\^e}}1 {ë}{{\"e}}1 {û}{{\^u}}1 {ù}{{\`u}}1 {â}{{\^a}}1 {à}{{\`a}}1 {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1 {É}{{\'E}}1 {Ê}{{\^E}}1 {È}{{\`E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1 {»}{{\guillemotright}}1 {°}{{\textdegree}}1 {~}{{\textasciitilde}}1
+}
+
+
+
+\begin{document}
+
+\begin{titlepage}
+  \title{TD\\Socket Avancé\\Réalisation d'une Application de Chat basique}
+  \author{SANNA Thomas}
+  \date{\today}
+  \maketitle
+\end{titlepage}
+
+\section{Introduction}
+
+Ce rapport détaille la réalisation d'une application de chat basique permettant à plusieurs utilisateurs de se connecter simultanément. Le serveur utilise un modèle non-bloquant pour gérer les connexions et les messages. Le projet est divisé en trois parties principales:
+\begin{enumerate}
+    \item Encodage et décodage des messages.
+    \item Implémentation du serveur.
+    \item Implémentation du client.
+\end{enumerate}
+
+\section{Exercice 1 — Réalisation du Chat}
+
+\subsection{Objectifs}
+
+\begin{enumerate}
+    \item \textbf{Structuration des messages}: Chaque message transmis contient un en-tête (un entier de 32 bits en big-endian) indiquant sa taille. Le récepteur doit d'abord récupérer cette valeur avant de lire le message complet.
+    \item \textbf{Fonctions d'encodage et de décodage}:
+    \begin{itemize}
+        \item \texttt{encode\_message(mess: str)}: Encode le message en bytes, ajoute un timestamp et un en-tête contenant la taille du message.
+        \item \texttt{decode\_message(encoded\_mess: bytes)}: Décode les bytes en extrayant l'en-tête et le message.
+    \end{itemize}
+\end{enumerate}
+
+\break\subsection{Implémentation}
+
+\subsubsection{Fichier \texttt{utils.py}}
+
+Ce fichier contient les fonctions d'encodage et de décodage des messages.
+
+\paragraph{Fonction \texttt{encode\_message}}:
+
+\begin{lstlisting}[language=Python, caption=encode\_message dans utils.py]
+import time
+import struct
+
+def encode_message(message: str) -> bytes:
+    timestamp = time.strftime('%Y-%m-%d %H:%M', time.gmtime())
+    full_message = f"{timestamp} {message}"
+    message_bytes = full_message.encode('utf-8')
+    header = struct.pack('>I', len(message_bytes))  # >I signifie que le format est big-endian unsigned int
+    return header + message_bytes
+\end{lstlisting}
+
+\subparagraph{Explications}
+
+\begin{itemize}
+    \item \texttt{encode\_message}: Ajoute un timestamp au message, encode le message en bytes et ajoute un en-tête contenant la taille du message.
+\end{itemize}
+
+\paragraph{Fonction \texttt{decode\_message}}:
+
+\begin{lstlisting}[language=Python, caption=decode\_message dans utils.py]
+def decode_message(data: bytes) -> str:
+    if len(data) < 4:
+        raise ValueError("Data is too short to contain a valid message header")
+    
+    message_length = struct.unpack('>I', data[:4])[0]
+    if len(data) < 4 + message_length:
+        raise ValueError("Data is too short to contain the full message")
+    
+    full_message = data[4:4 + message_length].decode('utf-8')
+    yearMonthDay, hourMinSec, message = full_message.split(' ', 2)
+    return message
+\end{lstlisting}
+
+\subparagraph{Explications}
+
+\begin{itemize}
+    \item \texttt{decode\_message}: Décode les bytes en extrayant l'en-tête et le message. Vérifie que les données sont suffisamment longues pour contenir un message valide.
+\end{itemize}
+
+\section{Exercice 2 — Implémentation du Serveur}
+
+\subsection{Objectifs}
+
+\begin{enumerate}
+    \item Sauvegarder les sockets acceptés dans une liste.
+    \item Afficher le message reçu dans la console avec l'adresse du socket source.
+    \item Transmettre le message à tous les autres clients connectés, en incluant l'heure et l'adresse de l'émetteur dans l'en-tête du message.
+\end{enumerate}
+
+\subsection{Implémentation}
+
+\subsubsection{Fichier \texttt{serv.py}}
+
+Ce fichier contient l'implémentation du serveur.
+
+\paragraph{Fonction \texttt{accept}}:
+
+\begin{lstlisting}[language=Python, caption=accept dans serv.py]
+import selectors
+import socket
+import utils
+
+# Create a default selector
+sel = selectors.DefaultSelector()
+
+# List to store accepted sockets
+clients = []
+
+def accept(sock, mask):
+    conn, addr = sock.accept()  # Should be ready
+    print("Accepted connection from", addr)
+    conn.setblocking(False)
+    sel.register(conn, selectors.EVENT_READ, read)
+    clients.append((conn, addr))  # Add the new connection to the clients list
+\end{lstlisting}
+
+\subparagraph{Explications}
+
+\begin{itemize}
+    \item \texttt{accept}: Accepte une nouvelle connexion, l'ajoute à la liste \texttt{clients} et l'enregistre pour surveiller les événements de lecture.
+\end{itemize}
+
+\paragraph{Fonction \texttt{read}}:
+
+\begin{lstlisting}[language=Python, caption=read dans serv.py]
+def read(conn, mask):
+    data = conn.recv(1000)  # Should be ready
+    addr = conn.getpeername()
+    if data:
+        message = utils.decode_message(data)
+        print(f"Received message from {addr}: {message}")
+
+        # Create the message to be sent to other clients
+        encoded_message = utils.encode_message(message)
+
+        # Send the message to all other clients
+        for client, client_addr in clients:
+            if client != conn:
+                client.send(encoded_message)
+    else:
+        print("Closing connection to", conn)
+        sel.unregister(conn)
+        conn.close()
+        clients.remove((conn, addr))  # Remove the connection from the clients list
+\end{lstlisting}
+
+\subparagraph{Explications}
+
+\begin{itemize}
+    \item \texttt{read}: Lit les données du socket, affiche le message reçu avec l'adresse du socket source, et transmet le message à tous les autres clients connectés.
+\end{itemize}
+
+{Si \texttt{data} n'existe pas (c'est-à-dire que \texttt{recv} retourne une chaîne vide), cela signifie que le client a fermé la connexion. Dans ce cas, le serveur ferme la connexion avec le client, désenregistre le socket du sélecteur et le retire de la liste des clients.}
+
+\break\paragraph{Configuration du Serveur et Boucle d'Événements}:
+
+\begin{lstlisting}[language=Python, caption=Configuration du serveur et boucle d'événements dans serv.py]
+# Create and bind the socket
+sock = socket.socket()
+sock.bind(("localhost", 12345))  # Change port to 12345 to match the client
+sock.listen(100)
+sock.setblocking(False)
+sel.register(sock, selectors.EVENT_READ, accept)
+
+print("Server started on port 12345")
+
+# Event loop
+while True:
+    events = sel.select()
+    for key, mask in events:
+        callback = key.data
+        callback(key.fileobj, mask)
+\end{lstlisting}
+
+\subparagraph{Explications}
+
+\begin{itemize}
+    \item \textbf{Configuration du Serveur}: Crée et lie le socket, le configure pour le mode non-bloquant, et l'enregistre pour surveiller les événements de lecture.
+    \item \textbf{Boucle d'Événements}: Sélectionne les événements prêts et appelle la fonction de rappel appropriée pour chaque événement.
+\end{itemize}
+
+\break\section{Exercice 3 — Implémentation du Client}
+
+\subsection{Objectifs}
+
+\begin{enumerate}
+    \item Créer une application client permettant de se connecter au serveur.
+    \item Utiliser des threads pour gérer l'envoi et la réception des messages en parallèle. Cette fonctionnalité est utile car l'envoi et la réception de messages sont normalement des opérations bloquantes; Il est donc nécessaire d'utiliser des threads pour les exécuter simultanément.
+\end{enumerate}
+
+\subsection{Implémentation}
+
+\subsubsection{Fichier \texttt{client.py}}
+
+Ce fichier contient l'implémentation du client.
+
+\paragraph{Fonction \texttt{send\_loop}}:
+
+\begin{lstlisting}[language=Python, caption=send\_loop dans client.py]
+import threading
+import socket
+import utils
+
+# Define and connect the socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.connect(('localhost', 12345))
+
+def send_loop():
+    while True:
+        message = input()
+        sock.send(utils.encode_message(message))
+\end{lstlisting}
+
+\subparagraph{Explications}
+
+\begin{itemize}
+    \item \texttt{send\_loop}: Lit les messages de l'utilisateur et les envoie au serveur.
+\end{itemize}
+
+\paragraph{Fonction \texttt{receive\_loop}}:
+
+\begin{lstlisting}[language=Python, caption=receive\_loop dans client.py]
+def receive_loop():
+    while True:
+        message = sock.recv(1000)
+        print("Donnée envoyée par le serveur: ", utils.decode_message(message))
+\end{lstlisting}
+
+\subparagraph{Explications}
+
+\begin{itemize}
+    \item \texttt{receive\_loop}: Reçoit les messages du serveur et les affiche.
+\end{itemize}
+
+\paragraph{Utilisation des Threads}:
+
+\begin{lstlisting}[language=Python, caption=Utilisation des threads dans client.py]
+thread_send = threading.Thread(target=send_loop)
+thread_send.start()
+
+thread_receive = threading.Thread(target=receive_loop)
+thread_receive.start()
+
+thread_send.join()
+thread_receive.join()
+\end{lstlisting}
+
+\subparagraph{Explications}
+
+\begin{itemize}
+    \item \textbf{Threads}: Utilise des threads pour exécuter \texttt{send\_loop} et \texttt{receive\_loop} simultanément.
+\end{itemize}
+
+\end{document}

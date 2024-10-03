@@ -1,6 +1,6 @@
 import threading
 import socket
-from utils import *
+import utils
 
 
 # Define and connect the socket
@@ -10,12 +10,12 @@ sock.connect(('localhost', 12345))
 def send_loop():
     while True:
         message = input()
-        sock.send(encode_message(message))
+        sock.send(utils.encode_message(message))
         
 def receive_loop():
     while True:
         message = sock.recv(1000)
-        print("Donnée envoyée par le serveur : ", decode_message(message))
+        print("Donnée envoyée par le serveur : ", utils.decode_message(message))
 
 
 

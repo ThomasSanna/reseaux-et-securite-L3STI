@@ -2,7 +2,7 @@ import time
 import struct
 
 def encode_message(message: str) -> bytes:
-  timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
+  timestamp = time.strftime('%Y-%m-%d %H:%M', time.gmtime())
   full_message = f"{timestamp} {message}"
   message_bytes = full_message.encode('utf-8')
   header = struct.pack('>I', len(message_bytes)) # >I signifie que le format est big-endian unsigned int
