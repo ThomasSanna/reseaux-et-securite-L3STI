@@ -22,7 +22,9 @@ Le paquet situé à H arrivera le plus vite à D par l'interface 192.168.11.2 (v
 
 Voir [traceroute4.png](traceroute4.png)
 
-## 5 Supprimer le lien entre A et H, et attendre que des nouveaux paquets RIP transitent pour que les tables de routages soient mises à jour. Recommencer l’opération de la question précédente et donner le nouveau chemin
+## 5
+
+### Supprimer le lien entre A et H, et attendre que des nouveaux paquets RIP transitent pour que les tables de routages soient mises à jour. Recommencer l’opération de la question précédente et donner le nouveau chemin
 
 Voir [traceroute5.png](traceroute5.png)
 
